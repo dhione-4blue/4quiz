@@ -1,15 +1,10 @@
-# ══════════════════════════════════════════════════════════════════
-#  4quiz · GitHub Actions — Deploy automático para Firebase
-#  Dispara a cada push na branch "main"
-#  Faz deploy de: Hosting + Firestore Rules + Indexes
-# ══════════════════════════════════════════════════════════════════
-
 name: Deploy 4quiz → Firebase
 
 on:
   push:
     branches:
-      - main          # muda para "master" se sua branch principal se chamar assim
+      - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -17,11 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Baixa o código do repositório
       - name: Checkout do repositório
         uses: actions/checkout@v4
 
-      # 2. Deploy do Hosting (site completo)
       - name: Deploy Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -30,7 +23,6 @@ jobs:
           channelId: live
           projectId: quiz-27b46
 
-      # 3. Deploy das Regras e Indexes do Firestore
       - name: Deploy Firestore Rules + Indexes
         run: |
           echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_QUIZ_27B46 }}' > /tmp/sa.json
@@ -38,8 +30,5 @@ jobs:
           npm install -g firebase-tools
           firebase deploy --only firestore --project quiz-27b46 --non-interactive
 
-      # 4. Confirmação no log
       - name: Concluído
-        run: |
-          echo "✅ 4quiz no ar!"
-          echo "🌐 https://quiz-27b46.web.app"
+        run: echo "✅ https://quiz-27b46.web.app"
