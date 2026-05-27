@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helpers ───────────────────────────────────────────────────
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+             request.auth.token.email == 'equipemkt@4blue.com.br';
+    }
+
+    // ─── Quizzes ───────────────────────────────────────────────────
+    // Admin: leitura e escrita totais
+    // Público: somente leitura de quizzes ativos (para o player)
+    match /quizzes/{quizId} {
+      allow read: if resource.data.status == 'active' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // ─── Respostas ─────────────────────────────────────────────────
+    // Qualquer um pode criar uma resposta (lead preenchendo quiz)
+    // Somente admin lê / atualiza / deleta
+    match /responses/{responseId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─── Drop-off tracking ─────────────────────────────────────────
+    match /dropoffs/{docId} {
+      allow create: if true;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─── Configurações globais ─────────────────────────────────────
+    match /settings/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+    // ─── Bloqueia tudo o mais ──────────────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
