@@ -544,17 +544,6 @@
     } catch(e) { toast('Erro ao excluir.', 'error'); }
   };
 
-  async function notifyGAS(payload) {
-    try {
-      const { GAS_WEBHOOK_URL } = await import('/js/firebase-config.js');
-      fetch(GAS_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch(e) {}
-  }
-
   function escHtml(str) {
     return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
