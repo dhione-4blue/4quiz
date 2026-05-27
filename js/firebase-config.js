@@ -4,17 +4,17 @@
 // ╚══════════════════════════════════════════════════════════════════╝
 
 const FIREBASE_CONFIG = {
-  apiKey:            "SUA_API_KEY",
-  authDomain:        "SEU-PROJECT-ID.firebaseapp.com",
-  projectId:         "SEU-PROJECT-ID",
-  storageBucket:     "SEU-PROJECT-ID.appspot.com",
-  messagingSenderId: "SEU_SENDER_ID",
-  appId:             "SEU_APP_ID",
-  measurementId:     "G-XXXXXXXXXX"
+  apiKey:            "AIzaSyCik311Q1qd2x_FrdZrNWZSwuDl89pn3xc",
+  authDomain:        "quiz-27b46.firebaseapp.com",
+  projectId:         "quiz-27b46",
+  storageBucket:     "quiz-27b46.firebasestorage.app",
+  messagingSenderId: "952222704671",
+  appId:             "1:952222704671:web:e6b280a83fcf43cbc9212a",
+  measurementId:     "G-JDR92CMEYW"
 };
 
 // ── URL do Google Apps Script (code.gs publicado como Web App) ─────
-const GAS_WEBHOOK_URL = "https://script.google.com/macros/s/SEU_DEPLOYMENT_ID/exec";
+const GAS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwvykuP51_5WF5Sz43ZFdtGDtEoL3nPsTyD7QDe3Q6avybAdTQqSPzpfArdZfpJNfQ/exec";
 
 // ── E-mail autorizado para acesso ao dashboard ─────────────────────
 const ADMIN_EMAIL = "equipemkt@4blue.com.br";
